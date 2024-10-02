@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.text.SimpleDateFormat
@@ -51,22 +52,37 @@ fun TodoListPage(viewModel: TodoViewModel) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ){
             OutlinedTextField(value = inputText, onValueChange = { inputText = it })
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = {
+                viewModel.addTodo(inputText)
+                inputText=""
+            }) {
                 Text(text = "Add")
             }
         }
-        LazyColumn(content = {
-            itemsIndexed(todoList){
-                index: Int, item: Todo -> TodoItem(item = item)
-            }
 
-        })
+        todoList?.let{
+            LazyColumn(content = {
+                itemsIndexed(it){
+                    index: Int, item: Todo -> TodoItem(item = item,
+                    onDelete = {
+                        viewModel.deleteTodo(item.id)
+                    })
+                }
+
+            })
+        }?: Text(
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            text = "No Items Yet",
+            fontSize = 16.sp
+        )
+
     }
 
 }
 
 @Composable
-fun TodoItem(item:Todo) {
+fun TodoItem(item:Todo, onDelete : ()-> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -88,7 +104,7 @@ fun TodoItem(item:Todo) {
                 color = Color.White
             )
         }
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = onDelete) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_delete_24),
                 contentDescription = "Delete",
