@@ -1,6 +1,7 @@
 package ph.jproyekto.todoapp
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 fun TodoListPage() {
@@ -32,5 +35,11 @@ fun TodoListPage() {
 
 @Composable
 fun TodoItem(item:Todo) {
-    Text(text=item.toString())
+    Row{
+        Column {
+            Text(text = SimpleDateFormat("yyyy-mm-dd HH:mm", Locale.ENGLISH).format(item.createdAt))
+            Text(text = item.title)
+        }
+
+    }
 }
