@@ -17,6 +17,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,8 +33,8 @@ import java.util.Locale
 
 
 @Composable
-fun TodoListPage() {
-    val todoList = getFakeTodo()
+fun TodoListPage(viewModel: TodoViewModel) {
+    val todoList by viewModel.todoList.observeAsState()
     var inputText by remember {
         mutableStateOf("")
     }
@@ -44,7 +45,8 @@ fun TodoListPage() {
             .padding(8.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ){
