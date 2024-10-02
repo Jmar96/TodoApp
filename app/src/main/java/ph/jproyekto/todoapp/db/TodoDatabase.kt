@@ -2,7 +2,6 @@ package ph.jproyekto.todoapp.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import ph.jproyekto.todoapp.Todo
 

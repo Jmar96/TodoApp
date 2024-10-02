@@ -13,11 +13,3 @@ data class Todo(
     var createdAt : Date
 )
 
-
-//fun getFakeTodo(): List<Todo> {
-//    return listOf<Todo>(
-//        Todo(1,"First todo", Date.from(Instant.now())),
-//        Todo(2,"Second todo", Date.from(Instant.now())),
-//        Todo(3,"Third todo", Date.from(Instant.now()))
-//    );
-//}
